@@ -28,7 +28,11 @@ type configRedis struct {
 // configCookie Cookie props specifit config
 type configCookie struct {
 	Name string `envconfig:"COOKIE_NAME" yaml:"name" json:"name"`
-	Ttl  string `envconfig:"COOKIE_TTL" yaml:"ttl" json"ttl"`
+	TTL  int    `envconfig:"COOKIE_TTL" yaml:"ttl" json:"ttl"`
+}
+
+type configApp struct {
+	UsersFile string `envconfig:"APP_USERS_FILE" yaml:"users_file" json:"users_file"`
 }
 
 // Config - Application configration
@@ -36,6 +40,7 @@ type Config struct {
 	Server configServer `yaml:"server" json:"server"`
 	Redis  configRedis  `yaml:"redis" json:"redis"`
 	Cookie configCookie `yaml:"cookie" json:"cookie"`
+	App    configApp    `yaml:"app" json:"app"`
 }
 
 //ReadYaml - Reads configuration from the YAML file
@@ -79,6 +84,13 @@ func CreateConfig() *Config {
 			Password: "",
 			Database: 0,
 			Host:     "localhost:6987",
+		},
+		Cookie: configCookie{
+			Name: "_uutc", // user's usage tracking cookie
+			TTL:  30 * 60,
+		},
+		App: configApp{
+			UsersFile: "resources/users.yaml",
 		},
 	}
 }
