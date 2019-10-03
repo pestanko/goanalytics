@@ -13,22 +13,29 @@ var log = CreateLogger()
 
 // ConfigServer - server configuration
 type configServer struct {
-	Port string `envconfig:"SERVER_PORT" yaml:"port"`
-	Host string `envconfig:"SERVER_HOST" yaml:"host"`
+	Port string `envconfig:"SERVER_PORT" yaml:"port" json:"port"`
+	Host string `envconfig:"SERVER_HOST" yaml:"host" json:"host"`
 }
 
 // ConfigRedis Redis Configuration
 type configRedis struct {
-	Username string `envconfig:"REDIS_USERNAME" yaml:"username"`
-	Password string `envconfig:"REDIS_PASSWORD" yaml:"password"`
-	Host     string `envconfig:"REDIS_HOST" yaml:"host"`
-	Database int    `envconfig:"REDIS_DATABASE" yaml:"database"`
+	Username string `envconfig:"REDIS_USERNAME" yaml:"username" json:"username"`
+	Password string `envconfig:"REDIS_PASSWORD" yaml:"password" json:"password"`
+	Host     string `envconfig:"REDIS_HOST" yaml:"host" json:"host"`
+	Database int    `envconfig:"REDIS_DATABASE" yaml:"database" json:"database"`
+}
+
+// configCookie Cookie props specifit config
+type configCookie struct {
+	Name string `envconfig:"COOKIE_NAME" yaml:"name" json:"name"`
+	Ttl  string `envconfig:"COOKIE_TTL" yaml:"ttl" json"ttl"`
 }
 
 // Config - Application configration
 type Config struct {
-	Server configServer `yaml:"server"`
-	Redis  configRedis  `yaml:"redis"`
+	Server configServer `yaml:"server" json:"server"`
+	Redis  configRedis  `yaml:"redis" json:"redis"`
+	Cookie configCookie `yaml:"cookie" json:"cookie"`
 }
 
 //ReadYaml - Reads configuration from the YAML file

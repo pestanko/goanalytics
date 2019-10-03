@@ -1,4 +1,4 @@
 # GO Analytics
 
-Tool for simple tracking unique visitors on your pages.
+Simple tool to track unique visitors on your pages.
 
